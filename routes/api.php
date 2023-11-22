@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookCoverController;
 use App\Http\Controllers\CoverController;
+use App\Http\Controllers\GenreBooksController;
 use App\Http\Controllers\GenreController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,7 @@ Route::prefix('/v1')->group(function () {
     Route::apiResource('books', BookController::class);
     Route::apiResource('authors', AuthorController::class);
     Route::apiResource('genres', GenreController::class);
+    Route::apiResource('genres.books', GenreBooksController::class)->only(['index']);
     Route::apiResource('authors.books', AuthorBooksController::class)->only(['index']);
     Route::apiResource('books.cover', BookCoverController::class)->only(['store', 'destroy']);
     Route::apiResource('covers', CoverController::class)->only(['show', 'store', 'destroy']);
