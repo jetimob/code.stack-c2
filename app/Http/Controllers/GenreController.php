@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateGenreRequest;
+use App\Http\Requests\StoreGenreRequest;
 use App\Http\Resources\GenreResource;
 use App\Models\Genre;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -15,5 +15,29 @@ class GenreController extends Controller
         return GenreResource::collection(
             Genre::withCount('books')->paginate()
         );
+    }
+
+    public function show(Genre $genre): GenreResource
+    {
+        $genre->loadCount('books');
+        return GenreResource::make($genre);
+    }
+
+    public function store(StoreGenreRequest $request): GenreResource
+    {
+        $genre = Genre::create($request->validated());
+        return GenreResource::make($genre);
+    }
+
+    public function update(StoreGenreRequest $request, Genre $genre): GenreResource
+    {
+        $genre->update($request->validated());
+        return GenreResource::make($genre);
+    }
+
+    public function destroy(Genre $genre): Response
+    {
+        $genre->delete();
+        return response()->noContent();
     }
 }

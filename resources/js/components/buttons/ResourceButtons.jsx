@@ -45,13 +45,14 @@ const ResourceButtons = ({
                     .
                 </Text>
             ),
-        });
+        }
+    );
 
     const btns = [
-        <ResourceActionButton to={`/${route}/${id}/edit`}>
+        <ResourceActionButton key={`edit-${id}`} to={`/${route}/${id}/edit`}>
             <Edit />
         </ResourceActionButton>,
-        <ActionIcon variant='subtle' onClick={openModal}>
+        <ActionIcon key='trash-can' variant='subtle' onClick={openModal}>
             <TrashCan />
         </ActionIcon>,
     ];
