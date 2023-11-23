@@ -34,12 +34,15 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('authors.books', AuthorBooksController::class)->only(['index']);
         Route::apiResource('books.cover', BookCoverController::class)->only(['store', 'destroy']);
         Route::apiResource('covers', CoverController::class)->only(['show', 'store', 'destroy']);
-    
-        Route::prefix('/auth')->group(function () {
-            Route::post('/sign-in', [AuthenticationController::class, 'signIn']);
-            Route::post('/sign-up', [AuthenticationController::class, 'signUp']);
-            Route::post('/sign-out', [AuthenticationController::class, 'signOut']);
-            Route::get('/me', [AuthenticationController::class, 'me']);
-        });
+    });
+});
+
+
+Route::prefix('/v1')->group(function () {
+    Route::prefix('/auth')->group(function () {
+        Route::post('/sign-in', [AuthenticationController::class, 'signIn']);
+        Route::post('/sign-up', [AuthenticationController::class, 'signUp']);
+        Route::post('/sign-out', [AuthenticationController::class, 'signOut']);
+        Route::get('/me', [AuthenticationController::class, 'me']);
     });
 });
