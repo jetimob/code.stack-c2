@@ -10,6 +10,9 @@ import ManageBook from '../pages/books/ManageBook.jsx';
 import GenreList from '../pages/genres/GenreList.jsx';
 import GenreView from '../pages/genres/GenreView.jsx';
 import ManageGenre from '../pages/genres/ManageGenre.jsx';
+import PublisherList from '../pages/publishers/PublisherList.jsx';
+import PublisherView from '../pages/publishers/PublisherView.jsx';
+import ManagePublisher from '../pages/publishers/ManagePublisher.jsx';
 
 const Routes = () => (
     <RS>
@@ -34,6 +37,13 @@ const Routes = () => (
             <Route path=':id' element={<GenreView />} />
             <Route path=':id/edit' element={<ManageGenre />} />
             <Route path='new' element={<ManageGenre />} />
+        </Route>
+
+        <Route path='/publishers'>
+            <Route index element={<PublisherList />} />
+            <Route path=':id' element={<PublisherView />} />
+            <Route path=':id/edit' element={<ManagePublisher />} />
+            <Route path='new' element={<ManagePublisher />} />
         </Route>
 
         <Route path='*' element={<NotFound />} />

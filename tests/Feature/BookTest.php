@@ -3,13 +3,14 @@
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Genre;
+use App\Models\Publisher;
 use Illuminate\Http\UploadedFile;
 
 uses()->group('books');
 
 function getLastBook(): Book
 {
-    return Book::query()->with(['cover', 'author', 'genre'])->latest()->first();
+    return Book::query()->with(['cover', 'author', 'genre', 'publisher'])->latest()->first();
 }
 
 test('should return a list of paginated books', function () {
@@ -35,6 +36,10 @@ test('should return a list of paginated books', function () {
                         'id' => $concreteBook->genre->getKey(),
                         'name' => $concreteBook->genre->name,
                     ],
+                    'publisher' => [
+                        'id' => $concreteBook->publisher->getKey(),
+                        'name' => $concreteBook->publisher->name,
+                    ],
                     'cover' => [
                         'id' => $concreteBook->cover->getKey(),
                         'url' => url($concreteBook->cover->path),
@@ -50,6 +55,7 @@ test('will fail when creating a book with invalid data', function () {
         'description' => '',
         'author' => '',
         'genre_id' => '',
+        'publisher_id' => '',
     ]);
 
     $response->assertUnprocessable();
@@ -58,6 +64,7 @@ test('will fail when creating a book with invalid data', function () {
 test('can create a book without cover', function () {
     $author = Author::factory()->create();
     $genre = Genre::factory()->create();
+    $publisher = Publisher::factory()->create();
     $title = fake()->word;
     $description = fake()->paragraph;
     $rating = fake()->numberBetween(1, 5);
@@ -69,6 +76,7 @@ test('can create a book without cover', function () {
         'isbn' => $isbn,
         'author_id' => $author->getKey(),
         'genre_id' => $genre->getKey(),
+        'publisher_id' => $publisher->getKey(),
     ];
 
     $response = $this->postJson(route('books.store'), $arrData);
@@ -82,6 +90,7 @@ test('can create a book without cover', function () {
 test('can create a book with cover', function () {
     $author = Author::factory()->create();
     $genre = Genre::factory()->create();
+    $publisher = Publisher::factory()->create();
     $title = fake()->words(asText: true);
     $description = fake()->paragraph;
     $rating = fake()->numberBetween(1, 5);
@@ -98,6 +107,7 @@ test('can create a book with cover', function () {
         'isbn' => $isbn,
         'author_id' => $author->getKey(),
         'genre_id' => $genre->getKey(),
+        'publisher_id' => $publisher->getKey(),
         'cover_id' => $coverData['id'],
     ];
 
@@ -131,6 +141,10 @@ test('can show a book correctly', function () {
                 'id' => $book->genre->getKey(),
                 'name' => $book->genre->name,
             ],
+            'publisher' => [
+                'id' => $book->publisher->getKey(),
+                'name' => $book->publisher->name,
+            ],
             'cover' => [
                 'id' => $book->cover->getKey(),
                 'url' => url($book->cover->path),
@@ -145,6 +159,7 @@ test('will fail when updating a book with invalid data', function () {
         'description' => '',
         'author' => '',
         'genre_id' => '',
+        'publisher_id' => '',
     ]);
 
     $response->assertUnprocessable();
@@ -154,6 +169,7 @@ test('can update a book', function () {
     $book = Book::factory()->create();
     $author = Author::factory()->create();
     $genre = Genre::factory()->create();
+    $publisher = Publisher::factory()->create();
     $title = fake()->words(asText: true);
     $description = fake()->paragraph;
     $rating = fake()->numberBetween(1, 5);
@@ -166,6 +182,7 @@ test('can update a book', function () {
         'isbn' => $isbn,
         'author_id' => $author->getKey(),
         'genre_id' => $genre->getKey(),
+        'publisher_id' => $publisher->getKey(),
     ];
     $response = $this->putJson(route('books.update', $book->getKey()), $arrData);
     $response->assertOk();

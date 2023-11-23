@@ -24,6 +24,7 @@ class BookResource extends JsonResource
             'rating' => $this->rating,
             'author' => AuthorResource::make($this->author),
             'genre' => GenreResource::make($this->genre),
+            'publisher' => PublisherResource::make($this->publisher),
             'cover' => CoverResource::make($this->cover),
         ];
     }

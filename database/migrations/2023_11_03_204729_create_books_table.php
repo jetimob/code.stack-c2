@@ -2,6 +2,7 @@
 
 use App\Models\Author;
 use App\Models\Genre;
+use App\Models\Publisher;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -41,6 +42,13 @@ QUERY);
             $table->timestamps();
         });
 
+        Schema::create('publishers', function (Blueprint $table) {
+            $table->id();
+            $table->text('name');
+            $table->text('normalized_name')->storedAs('upper(f_unaccent(name))')->unique();
+            $table->timestamps();
+        });
+
         Schema::create('files', function (Blueprint $table) {
             $table->id();
             $table->text('name');
@@ -62,6 +70,7 @@ QUERY);
             $table->char('isbn', 13)->unique(); // https://en.wikipedia.org/wiki/ISBN
             $table->foreignIdFor(Author::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Genre::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Publisher::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(\App\Models\File::class, 'cover_id')->nullable()->constrained('files');
             $table->timestamps();
         });
@@ -72,6 +81,7 @@ QUERY);
         Schema::dropIfExists('books');
         Schema::dropIfExists('authors');
         Schema::dropIfExists('genres');
+        Schema::dropIfExists('publishers');
         Schema::dropIfExists('files');
 
         \DB::unprepared('DROP FUNCTION IF EXISTS public.f_unaccent(text);');

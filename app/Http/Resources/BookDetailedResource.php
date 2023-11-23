@@ -26,6 +26,7 @@ class BookDetailedResource extends JsonResource
             'isbn' => $this->isbn,
             'genre' => GenreResource::make($this->genre),
             'author' => AuthorResource::make($this->author),
+            'publisher' => PublisherResource::make($this->publisher),
             'cover' => CoverResource::make($this->cover),
             'created_at' => $this->created_at->format('F j, Y')
         ];

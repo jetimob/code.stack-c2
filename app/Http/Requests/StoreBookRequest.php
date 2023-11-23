@@ -21,6 +21,7 @@ class StoreBookRequest extends FormRequest
             'isbn' => 'required|string|size:13',
             'author_id' => 'required|integer|exists:authors,id',
             'genre_id' => 'required|integer|exists:genres,id',
+            'publisher_id' => 'required|integer|exists:publishers,id',
             'cover_id' => 'nullable|integer|exists:files,id',
         ];
     }

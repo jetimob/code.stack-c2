@@ -19,12 +19,14 @@ use Illuminate\Support\Carbon;
  * @property string $isbn
  * @property int $author_id
  * @property int $genre_id
+ * @property int $publisher_id
  * @property int|null $cover_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Author|null $author
  * @property-read File|null $cover
  * @property-read Genre|null $genre
+ * @property-read Publisher|null $publisher
  * @method static BookFactory factory($count = null, $state = [])
  * @method static Builder|Book newModelQuery()
  * @method static Builder|Book newQuery()
@@ -51,6 +53,7 @@ class Book extends Model
         'isbn',
         'author_id',
         'genre_id',
+        'publisher_id',
         'cover_id',
     ];
 
@@ -66,6 +69,11 @@ class Book extends Model
     public function genre(): BelongsTo
     {
         return $this->belongsTo(Genre::class);
+    }
+
+    public function publisher(): BelongsTo
+    {
+        return $this->belongsTo(Publisher::class);
     }
 
     public function cover(): BelongsTo

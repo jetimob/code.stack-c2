@@ -11,7 +11,9 @@ import { Link } from 'react-router-dom';
 import Card from '../data-display/card/Card.jsx';
 import BookCover from './BookCover.jsx';
 
-const BookCard = ({ book }) => (
+const BookCard = ({ book }) => {
+    console.log(book)
+    return(
     <Card>
         <MantineCard.Section>
             <BookCover book={book} height={150} />
@@ -45,6 +47,6 @@ const BookCard = ({ book }) => (
             <Rating value={book.rating} readOnly size='lg' my='md' />
         </Center>
     </Card>
-);
+)};
 
 export default BookCard;

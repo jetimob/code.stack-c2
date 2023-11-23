@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\Publisher;
 use App\Models\Genre;
 use App\Models\User;
 use DB;
@@ -30,10 +31,12 @@ class DatabaseSeeder extends Seeder
 
             $genres = Genre::factory(10)->create();
             $authors = Author::factory(20)->create();
+            $publishers = Publisher::factory(10)->create();
 
             Book::factory(200)
                 ->recycle($genres)
                 ->recycle($authors)
+                ->recycle($publishers)
                 ->create();
         });
     }
