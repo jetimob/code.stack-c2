@@ -1,7 +1,12 @@
 <?php
 
 use App\Models\Publisher;
+use App\Models\User;
 
+beforeEach(function () {
+    $user = User::factory()->create();
+    $this->actingAs($user, 'sanctum');
+});
 
 uses()->group('publishers');
 

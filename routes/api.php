@@ -22,11 +22,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::middleware('auth:sanctum')->group(function () {
-});
 
-Route::prefix('/v1')->group(function () {
-    //parece que ta faltando um middleware aqui
+Route::middleware('auth:sanctum')->group(function () {
+    Route::prefix('/v1')->group(function () {
         Route::apiResource('books', BookController::class);
         Route::apiResource('authors', AuthorController::class);
         Route::apiResource('genres', GenreController::class);
@@ -37,10 +35,11 @@ Route::prefix('/v1')->group(function () {
         Route::apiResource('books.cover', BookCoverController::class)->only(['store', 'destroy']);
         Route::apiResource('covers', CoverController::class)->only(['show', 'store', 'destroy']);
     
-    Route::prefix('/auth')->group(function () {
-        Route::post('/sign-in', [AuthenticationController::class, 'signIn']);
-        Route::post('/sign-up', [AuthenticationController::class, 'signUp']);
-        Route::post('/sign-out', [AuthenticationController::class, 'signOut']);
-        Route::get('/me', [AuthenticationController::class, 'me']);
+        Route::prefix('/auth')->group(function () {
+            Route::post('/sign-in', [AuthenticationController::class, 'signIn']);
+            Route::post('/sign-up', [AuthenticationController::class, 'signUp']);
+            Route::post('/sign-out', [AuthenticationController::class, 'signOut']);
+            Route::get('/me', [AuthenticationController::class, 'me']);
+        });
     });
 });

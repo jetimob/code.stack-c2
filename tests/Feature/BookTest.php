@@ -5,6 +5,12 @@ use App\Models\Book;
 use App\Models\Genre;
 use App\Models\Publisher;
 use Illuminate\Http\UploadedFile;
+use App\Models\User;
+
+beforeEach(function () {
+    $user = User::factory()->create();
+    $this->actingAs($user, 'sanctum');
+});
 
 uses()->group('books');
 
