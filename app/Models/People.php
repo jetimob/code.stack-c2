@@ -17,6 +17,8 @@ use Illuminate\Support\Carbon;
  * @property string $normalized_name
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property-read Collection<int, Loan> $loans
+ * @property-read int|null $loans_count
  * @method static Builder|People newModelQuery()
  * @method static Builder|People newQuery()
  * @method static Builder|People query()
@@ -34,6 +36,11 @@ class People extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function loans(): HasMany
+    {
+        return $this->hasMany(Loan::class);
+    }
 
     public function scopeSearch(Builder $query, string $search): Builder
     {

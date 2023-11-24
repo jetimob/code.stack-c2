@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Loan;
 use App\Models\People;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Author;
@@ -35,10 +36,15 @@ class DatabaseSeeder extends Seeder
             $authors = Author::factory(20)->create();
             $publishers = Publisher::factory(10)->create();
 
-            Book::factory(200)
+            $books = Book::factory(200)
                 ->recycle($genres)
                 ->recycle($authors)
                 ->recycle($publishers)
+                ->create();
+
+            Loan::factory(10)
+                ->recycle($books)
+                ->recycle($peoples)
                 ->create();
         });
     }

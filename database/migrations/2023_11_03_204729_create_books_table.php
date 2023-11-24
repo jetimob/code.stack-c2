@@ -49,13 +49,6 @@ QUERY);
             $table->timestamps();
         });
 
-        Schema::create('peoples', function (Blueprint $table) {
-            $table->id();
-            $table->text('name');
-            $table->text('normalized_name')->storedAs('upper(f_unaccent(name))')->unique();
-            $table->timestamps();
-        });
-
         Schema::create('files', function (Blueprint $table) {
             $table->id();
             $table->text('name');
@@ -91,6 +84,7 @@ QUERY);
         Schema::dropIfExists('publishers');
         Schema::dropIfExists('files');
 
+        DB::unprepared('DROP FUNCTION IF EXISTS public.f_unaccent(text) CASCADE;');
         \DB::unprepared('DROP FUNCTION IF EXISTS public.f_unaccent(text);');
         \DB::unprepared('DROP FUNCTION IF EXISTS public.immutable_unaccent(regdictionary, text);');
         \DB::unprepared('DROP EXTENSION IF EXISTS "unaccent";');
