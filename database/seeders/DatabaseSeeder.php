@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\People;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Author;
 use App\Models\Book;
@@ -29,6 +30,7 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('password'),
             ]);
 
+            $peoples = People::factory(10)->create();
             $genres = Genre::factory(10)->create();
             $authors = Author::factory(20)->create();
             $publishers = Publisher::factory(10)->create();

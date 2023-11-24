@@ -7,7 +7,7 @@ const ManageGenre = () => {
     const breadcrumbs = [{ title: 'Genres', to: '/genres' }];
 
     if (id) {
-        breadcrumbs.push({ title: id, to: `/authors/${id}` });
+        breadcrumbs.push({ title: id, to: `/genres/${id}` });
     }
 
     return(

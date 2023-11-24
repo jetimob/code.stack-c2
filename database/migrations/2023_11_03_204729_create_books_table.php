@@ -49,6 +49,13 @@ QUERY);
             $table->timestamps();
         });
 
+        Schema::create('peoples', function (Blueprint $table) {
+            $table->id();
+            $table->text('name');
+            $table->text('normalized_name')->storedAs('upper(f_unaccent(name))')->unique();
+            $table->timestamps();
+        });
+
         Schema::create('files', function (Blueprint $table) {
             $table->id();
             $table->text('name');
