@@ -5,7 +5,14 @@ import { useSearchParams } from 'react-router-dom';
 
 import withRemoteErr from '../../../utils/withRemoteErrHoc.jsx';
 
-const RemoteList = ({ api, render, WrapperComponent, wrapperProps, booksOrdered = false }) => {
+const RemoteList = ({
+    api,
+    render,
+    WrapperComponent,
+    wrapperProps,
+    booksOrdered = false,
+    orderBy,
+}) => {
     const [response, setResponse] = useState(null);
     const [searchParams, setSearchParams] = useSearchParams();
     const newSearchParams = new URLSearchParams(searchParams);
@@ -19,13 +26,15 @@ const RemoteList = ({ api, render, WrapperComponent, wrapperProps, booksOrdered 
             setCurrentPage(castQPage);
         }
 
-        const response = booksOrdered ? await api : await api.get({ qs: { page: currentPage } });
+        const response = booksOrdered
+            ? await api.getOrdered(orderBy, currentPage)
+            : await api.get({ qs: { page: currentPage } });
         setResponse(response);
     }
 
     useEffect(() => {
         fetchData();
-    }, [searchParams, api]);
+    }, [searchParams, orderBy]);
 
     const totalPages = response?.meta.last_page;
 

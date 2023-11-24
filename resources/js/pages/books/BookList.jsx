@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-import { Loader, Select } from '@mantine/core';
-import { SimpleGrid } from '@mantine/core';
+import { Loader, Select, SimpleGrid } from '@mantine/core';
 
 import BookCard from '../../components/book/BookCard.jsx';
 import RemoteList from '../../components/data-display/list/RemoteList.jsx';
@@ -10,25 +9,16 @@ import api from '../../services/api';
 
 const BookList = () => {
     const [orderBy, setOrderBy] = useState('title');
-    const [getBooks, setGetBooks] = useState(api.books.getOrdered(orderBy));
 
     const orderOptions = [
-        { value: 'id', label: 'Id' },
         { value: 'title', label: 'Title' },
         { value: 'author_id', label: 'Author' },
         { value: 'genre_id', label: 'Genre' },
+        { value: 'rating', label: 'Rating' },
     ];
 
-    useEffect(() => {
-        setGetBooks(api.books.getOrdered(orderBy));
-    }, [orderBy]);
-
     const handleOrderByChange = value => {
-        if (value !== null) {
-            setOrderBy(value);
-        } else {
-            setOrderBy('id');
-        }
+        setOrderBy(value);
     };
 
     return (
@@ -43,7 +33,7 @@ const BookList = () => {
                 />
             </div>
             <RemoteList
-                api={getBooks}
+                api={api.books}
                 orderBy={orderBy}
                 booksOrdered={true}
                 render={({ data }) => (

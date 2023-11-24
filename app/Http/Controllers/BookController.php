@@ -14,8 +14,6 @@ use Illuminate\Http\Response;
 
 class BookController extends Controller
 {
-
-
     public function __construct(
         protected readonly BookService $bookService
     )
@@ -23,13 +21,18 @@ class BookController extends Controller
     }
 
     public function index(Request $request)
-{
-    $orderBy = $request->query('orderBy', 'id');
-    return BookResource::collection(
-        Book::orderBy($orderBy)->paginate()
-    );
-}
+    {
+        $orderBy = $request->query('orderBy', 'id');
+        $query = Book::query();
 
+        if ($orderBy === 'rating') {
+            $query->orderByDesc($orderBy);
+        } else {
+            $query->orderBy($orderBy);
+        }
+
+        return BookResource::collection($query->paginate());
+    }
 
     public function show(Book $book): JsonResource
     {
