@@ -7,6 +7,7 @@ use App\Http\Resources\BookDetailedResource;
 use App\Http\Resources\BookResource;
 use App\Models\Book;
 use App\Services\BookService;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Http\Response;
@@ -21,12 +22,14 @@ class BookController extends Controller
     {
     }
 
-    public function index(): ResourceCollection
-    {
-        return BookResource::collection(
-            Book::orderBy('id')->paginate()
-        );
-    }
+    public function index(Request $request)
+{
+    $orderBy = $request->query('orderBy', 'id');
+    return BookResource::collection(
+        Book::orderBy($orderBy)->paginate()
+    );
+}
+
 
     public function show(Book $book): JsonResource
     {

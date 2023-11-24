@@ -12,7 +12,6 @@ import Card from '../data-display/card/Card.jsx';
 import BookCover from './BookCover.jsx';
 
 const BookCard = ({ book }) => {
-    console.log(book)
     return(
     <Card>
         <MantineCard.Section>

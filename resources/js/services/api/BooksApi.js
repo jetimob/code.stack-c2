@@ -5,6 +5,10 @@ class BooksApi extends Api {
         super(axios, 'books');
     }
 
+    getOrdered(orderBy) {
+        return this.axios.get(`${this.basePath}`, { params: { orderBy: orderBy } });
+    }    
+
     associateCover(bookId, coverId, options = {}) {
         return this.axios.post(
             this.buildUrlWithOptions(
