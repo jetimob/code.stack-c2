@@ -13,6 +13,9 @@ import ManageGenre from '../pages/genres/ManageGenre.jsx';
 import PublisherList from '../pages/publishers/PublisherList.jsx';
 import PublisherView from '../pages/publishers/PublisherView.jsx';
 import ManagePublisher from '../pages/publishers/ManagePublisher.jsx';
+import PeopleList from '../pages/peoples/PeopleList.jsx';
+import PeopleView from '../pages/peoples/PeopleView.jsx';
+import ManagePeople from '../pages/peoples/ManagePeople.jsx';
 
 const Routes = () => (
     <RS>
@@ -44,6 +47,13 @@ const Routes = () => (
             <Route path=':id' element={<PublisherView />} />
             <Route path=':id/edit' element={<ManagePublisher />} />
             <Route path='new' element={<ManagePublisher />} />
+        </Route>
+
+        <Route path='/peoples'>
+            <Route index element={<PeopleList />} />
+            <Route path=':id' element={<PeopleView />} />
+            <Route path=':id/edit' element={<ManagePeople />} />
+            <Route path='new' element={<ManagePeople />} />
         </Route>
 
         <Route path='*' element={<NotFound />} />

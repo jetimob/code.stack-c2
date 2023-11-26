@@ -6,6 +6,7 @@ import BooksApi from './BooksApi.js';
 import CoversApi from './CoversApi.js';
 import GenresApi from './GenresApi.js';
 import PublishersApi from './PublishersApi.js';
+import PeoplesApi from './PeoplesApi.js';
 
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
@@ -24,6 +25,7 @@ export default {
     api,
     authors: new AuthorsApi(api),
     books: new BooksApi(api),
+    peoples: new PeoplesApi(api),
     genres: new GenresApi(api),
     publishers: new PublishersApi(api),
     covers: new CoversApi(api),
