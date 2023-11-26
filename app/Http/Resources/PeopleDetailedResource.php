@@ -2,14 +2,14 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Publisher;
+use App\Models\People;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @mixin Publisher
+ * @mixin People
  */
-class PublisherDetailResource extends JsonResource
+class PeopleDetailedResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -21,7 +21,7 @@ class PublisherDetailResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'book_count' => $this->books_count,
+            'loans_count' => $this->loans_count,
         ];
     }
 }
