@@ -2,9 +2,8 @@
 
 use App\Models\Genre;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 
-uses(RefreshDatabase::class, WithFaker::class)->group('genres');
+uses(RefreshDatabase::class)->group('genres.index');
 
 function getLastGenre(): Genre
 {
@@ -39,7 +38,7 @@ test('should return a list of paginated genres', function () {
 });
 
 test('can create a genre', function () {
-    $genreName = $this->faker->word;
+    $genreName = fake()->word;
     $arrData = [
         'name' => $genreName,
     ];
@@ -83,7 +82,7 @@ test('will fail when updating a genre with invalid data', function () {
 
 test('can update a genre', function () {
     $genre = Genre::factory()->create();
-    $genreName = $this->faker->word;
+    $genreName = fake()->word;
     $arrData = [
         'name' => $genreName,
     ];
