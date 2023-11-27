@@ -30,7 +30,7 @@ test('should return a list of peoples', function () {
 });
 
 test('will fail when creating a people with invalid data', function () {
-    $response = $this->postJson(route('books.store'), [
+    $response = $this->postJson(route('peoples.store'), [
         'name' => '',
     ]);
 

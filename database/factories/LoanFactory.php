@@ -24,7 +24,7 @@ class LoanFactory extends Factory
         $status = $this->faker->randomElement(["Returned","Borrowed","Delayed"]);
         $return_date = null;
         if($status === "Returned") {
-            $return_date = $this->faker->dateTimeBetween('-1 week', 'now');
+            $return_date = $this->faker->dateTimeBetween('now', '+2 week');
         };
 
         return [
