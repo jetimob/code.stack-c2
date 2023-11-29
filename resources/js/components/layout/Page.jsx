@@ -27,7 +27,11 @@ const Page = ({
             <Group justify='space-between' mb='md'>
                 <Breadcrumbs>
                     {breadcrumbs.map((crumb, i) => (
-                        <Link to={crumb.to} key={i}>
+                        <Link
+                            style={{ textDecoration: 'none' }}
+                            to={crumb.to}
+                            key={i}
+                        >
                             {crumb.title}
                         </Link>
                     ))}

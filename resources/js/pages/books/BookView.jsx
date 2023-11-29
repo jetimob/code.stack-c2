@@ -1,12 +1,16 @@
 import { Grid, Rating, Stack, Text, Title } from '@mantine/core';
 import { Link } from 'react-router-dom';
-import BookCover from '../../components/book/BookCover.jsx';
 
+import BookCover from '../../components/book/BookCover.jsx';
 import Page from '../../components/layout/Page.jsx';
+import RemoteLoanList from '../../components/loan/RemoteLoanList.jsx';
 import api from '../../services/api/index.js';
 import withRemoteDataHoc from '../../utils/withRemoteDataHoc.jsx';
 
 const BookView = ({ data: book }) => {
+    const remoteSrc = {
+        get: params => api.books.loans(book.id, params),
+    };
     return (
         <Page
             id={book.id}
@@ -41,15 +45,24 @@ const BookView = ({ data: book }) => {
                         <Title order={1}>{book.title}</Title>
                         <Text>
                             by{' '}
-                            <Link to={`/authors/${book.author.id}`}>
+                            <Link
+                                style={{ textDecoration: 'none' }}
+                                to={`/authors/${book.author.id}`}
+                            >
                                 {book.author.name}
                             </Link>{' '}
                             (Author) |{' '}
-                            <Link to={`/genres/${book.genre.id}`}>
+                            <Link
+                                style={{ textDecoration: 'none' }}
+                                to={`/genres/${book.genre.id}`}
+                            >
                                 {book.genre.name}
                             </Link>{' '}
                             (Genre) |{' '}
-                            <Link to={`/publishers/${book.publisher.id}`}>
+                            <Link
+                                style={{ textDecoration: 'none' }}
+                                to={`/publishers/${book.publisher.id}`}
+                            >
                                 {book.publisher.name}
                             </Link>{' '}
                             (Publisher) |{' '}
@@ -63,6 +76,7 @@ const BookView = ({ data: book }) => {
                         <Text mt='lg'>{book.description}</Text>
                     </Grid.Col>
                 </Grid>
+                <RemoteLoanList remoteSrc={remoteSrc} />
             </Stack>
         </Page>
     );

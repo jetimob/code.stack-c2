@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
                 ->recycle($publishers)
                 ->create();
 
-            Loan::factory(10)
+            Loan::factory(20)
                 ->recycle($books)
                 ->recycle($peoples)
                 ->create();

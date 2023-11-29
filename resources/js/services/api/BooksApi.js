@@ -5,6 +5,15 @@ class BooksApi extends Api {
         super(axios, 'books');
     }
 
+    loans(bookId, options = {}) {
+        return this.axios.get(
+            this.buildUrlWithOptions(
+                `${this.basePath}/${bookId}/loans`,
+                options
+            )
+        );
+    }
+
     getOrdered(orderBy, currentPage) {
         return this.axios.get(`${this.basePath}`, { 
             params: { 

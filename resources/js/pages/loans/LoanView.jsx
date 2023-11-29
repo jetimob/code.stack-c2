@@ -56,7 +56,10 @@ const LoanView = ({ data: loan }) => {
                         </Text>
                         <Text>
                             People:{' '}
-                            <Link to={`/peoples/${loan.people.id}`}>
+                            <Link
+                                style={{ textDecoration: 'none' }}
+                                to={`/peoples/${loan.people.id}`}
+                            >
                                 {loan.people.name}
                             </Link>
                         </Text>
@@ -71,7 +74,12 @@ const LoanView = ({ data: loan }) => {
                         </Box>
                     </Grid.Col>
                 </Grid>
-                <Link to={`/books/${loan.book.id}`}>See book details</Link>
+                <Link
+                    style={{ textDecoration: 'none' }}
+                    to={`/books/${loan.book.id}`}
+                >
+                    See book details
+                </Link>
             </Stack>
         </Page>
     );

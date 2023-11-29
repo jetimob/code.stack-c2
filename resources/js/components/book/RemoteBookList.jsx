@@ -8,7 +8,8 @@ const RemoteBookList = ({ remoteSrc = api.books }) => {
     return (
         <RemoteList
             api={remoteSrc}
-            render={({ data }) => (
+            render={({ data }) => {
+                return(
                 <SimpleGrid
                     cols={{
                         base: 1,
@@ -20,7 +21,7 @@ const RemoteBookList = ({ remoteSrc = api.books }) => {
                         <BookCard key={book.id} book={book} />
                     ))}
                 </SimpleGrid>
-            )}
+            )}}
         />
     );
 };

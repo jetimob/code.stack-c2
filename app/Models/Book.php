@@ -7,6 +7,7 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * \App\Models\Book
@@ -81,6 +82,11 @@ class Book extends Model
     public function cover(): BelongsTo
     {
         return $this->belongsTo(File::class, 'cover_id');
+    }
+
+    public function loans(): HasMany
+    {
+        return $this->hasMany(Loan::class);
     }
 
     protected static function newFactory(): BookFactory
