@@ -6,9 +6,8 @@ import api from '../../services/api/index.js';
 import withRemoteDataHoc from '../../utils/withRemoteDataHoc.jsx';
 
 const GenreView = ({ data: genre }) => {
-    console.log("genre view - genre.id:" + genre.id)
     const remoteSrc = {
-        get: params => api.genres.genres(genre.id, params),
+        get: params => api.genres.books(genre.id, params),
     };
 
     return (
