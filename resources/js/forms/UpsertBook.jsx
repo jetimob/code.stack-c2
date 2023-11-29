@@ -148,6 +148,14 @@ const UpsertBook = ({ data, setDataWith }) => {
                         withOption={data?.genre ?? {}}
                         {...form.getInputProps('genre_id')}
                     />
+                    <RemoteSelect
+                        required
+                        label='Publisher'
+                        api={api.publishers}
+                        placeholder='Select a publisher'
+                        withOption={data?.publisher ?? {}}
+                        {...form.getInputProps('publisher_id')}
+                    />
                     <FormButtons/>
                 </Stack>
             </form>

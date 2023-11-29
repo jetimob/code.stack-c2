@@ -49,6 +49,10 @@ const BookView = ({ data: book }) => {
                                 {book.genre.name}
                             </Link>{' '}
                             (Genre) |{' '}
+                            <Link to={`/publishers/${book.publisher.id}`}>
+                                {book.publisher.name}
+                            </Link>{' '}
+                            (Publisher) |{' '}
                             <Text span size='xs'>
                                 {book.created_at}
                             </Text>

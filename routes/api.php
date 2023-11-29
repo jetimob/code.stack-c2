@@ -8,6 +8,8 @@ use App\Http\Controllers\BookCoverController;
 use App\Http\Controllers\CoverController;
 use App\Http\Controllers\GenreBooksController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\PublisherController;
+use App\Http\Controllers\PublisherBooksController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +27,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('/v1')->group(function () {
         Route::apiResource('books', BookController::class);
         Route::apiResource('authors', AuthorController::class);
+        Route::apiResource('publishers', PublisherController::class);
+        Route::apiResource('publishers.books', PublisherBooksController::class)->only(['index']);
         Route::apiResource('genres', GenreController::class);
         Route::apiResource('genres.books', GenreBooksController::class)->only(['index']);
         Route::apiResource('authors.books', AuthorBooksController::class)->only(['index']);
