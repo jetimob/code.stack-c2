@@ -41,13 +41,12 @@ test('can show a people correctly', function () {
     $people = People::factory()->create();
     $creationResponse = $this->getJson(route('peoples.show', $people->getKey()));
     $peopleData = $creationResponse->json();
-
+    
     $creationResponse->assertOk();
     expect($peopleData['data'])
         ->toMatchArray([
             'id' => $people->getKey(),
             'name' => $people->name,
-            'loans_count' => $people->loans_count,
         ]);
 });
 

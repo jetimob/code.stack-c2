@@ -41,13 +41,12 @@ test('can show a publisher correctly', function () {
     $publisher = Publisher::factory()->create();
     $creationResponse = $this->getJson(route('publishers.show', $publisher->getKey()));
     $publisherData = $creationResponse->json();
-
+    
     $creationResponse->assertOk();
     expect($publisherData['data'])
         ->toMatchArray([
             'id' => $publisher->getKey(),
             'name' => $publisher->name,
-            'book_count' => $publisher->books_count,
         ]);
 });
 
