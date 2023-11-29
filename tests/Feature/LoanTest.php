@@ -23,7 +23,6 @@ test('should return a list of paginated loans', function () {
         ->toMatchArray([
             'id' => $responseData['id'],
             'status' => $responseData['status'],
-            'return_date' => $responseData['return_date'],
             'book' => [
                 'id' => $responseData['book']['id'],
                 'title' => $responseData['book']['title'],
@@ -98,7 +97,7 @@ test('can show a loan correctly', function () {
     expect($loanData)->toMatchArray([
         'id' => $loan->getKey(),
         'status' => $loan->status,
-        'return_date' => $loan->return_date ? date('F j, Y', strtotime($loan->return_date)) : null,
+        'return_date' => $loan->return_date ? date('Y-m-d', strtotime($loan->return_date)) : null,
         'book' => [
             'id' => $loan->book->getKey(),
             'title' => $loan->book->title,

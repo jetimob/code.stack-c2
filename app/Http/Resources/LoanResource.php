@@ -21,7 +21,6 @@ class LoanResource extends JsonResource
         return [
             'id' => $this->id,
             'status' => $this->status,
-            'return_date' => $this->return_date,
             'book' => BookResource::make($this->book),
             'people' => PeopleResource::make($this->people),
         ];
