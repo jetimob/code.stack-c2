@@ -18,6 +18,10 @@ class CreateLoanRequest extends FormRequest
             'book_id' => 'required|integer|exists:books,id',
             'people_id' => 'required|integer|exists:peoples,id',
             'status' => 'required|string',
+            'return_date' => [
+                'required_if:status,Returned',
+                'date',
+            ],
         ];
     }
 }

@@ -16,6 +16,9 @@ import ManagePublisher from '../pages/publishers/ManagePublisher.jsx';
 import PeopleList from '../pages/peoples/PeopleList.jsx';
 import PeopleView from '../pages/peoples/PeopleView.jsx';
 import ManagePeople from '../pages/peoples/ManagePeople.jsx';
+import LoanList from '../pages/loans/LoanList.jsx';
+import ManageLoan from '../pages/loans/ManageLoan.jsx';
+import LoanView from '../pages/loans/LoanView.jsx';
 
 const Routes = () => (
     <RS>
@@ -54,6 +57,13 @@ const Routes = () => (
             <Route path=':id' element={<PeopleView />} />
             <Route path=':id/edit' element={<ManagePeople />} />
             <Route path='new' element={<ManagePeople />} />
+        </Route>
+
+        <Route path='/loans'>
+            <Route index element={<LoanList />} />
+            <Route path=':id' element={<LoanView />} />
+            <Route path=':id/edit' element={<ManageLoan />} />
+            <Route path='new' element={<ManageLoan />} />
         </Route>
 
         <Route path='*' element={<NotFound />} />

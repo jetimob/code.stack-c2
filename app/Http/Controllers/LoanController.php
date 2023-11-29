@@ -25,35 +25,34 @@ class LoanController extends Controller
     }
 
     public function store(CreateLoanRequest $request)
-{
-    $validated = $request->validated();
+    {
+        $validated = $request->validated();
 
-    $people_id = $validated['people_id'];
-    $book_id = $validated['book_id'];
+        $people_id = $validated['people_id'];
+        $book_id = $validated['book_id'];
 
-    $openLoansCount = Loan::where('people_id', $people_id)
-                        ->whereIn('status', ['Borrowed', 'Delayed'])
-                        ->count();
+        $openLoansCount = Loan::where('people_id', $people_id)
+                            ->whereIn('status', ['Borrowed', 'Delayed'])
+                            ->count();
 
-    if ($openLoansCount > 2) {
-        return response()->json(['error' => 'The person already has more than two loans open', 'status' => 'loan_limit_exceeded'], 400);
+        if ($openLoansCount > 2) {
+            return response()->json(['error' => 'The person already has more than two loans open', 'status' => 'loan_limit_exceeded'], 400);
+        }
+
+        $existingOpenLoan = Loan::where('book_id', $book_id)
+                            ->whereIn('status', ['Borrowed', 'Delayed'])
+                            ->first();
+
+        if ($existingOpenLoan) {
+            return response()->json(['error' => 'There is already a loan for this book with status Borrowed or Delayed', 'status' => 'book_unavailable'], 400);
+        }
+
+        $loan = Loan::create($validated);
+
+        return LoanDetailedResource::make($loan);
     }
 
-    $existingOpenLoan = Loan::where('book_id', $book_id)
-                        ->whereIn('status', ['Borrowed', 'Delayed'])
-                        ->first();
-
-    if ($existingOpenLoan) {
-        return response()->json(['error' => 'There is already a loan for this book with status Borrowed or Delayed', 'status' => 'book_unavailable'], 400);
-    }
-
-    $loan = Loan::create($validated);
-
-    return LoanDetailedResource::make($loan);
-}
-
-
-    public function update(CreateLoanRequest $request, Loan $loan): LoanDetailedResource
+    public function update(CreateLoanRequest $request, Loan $loan)
     {
         $validated = $request->validated();
         $people_id = $validated['people_id'];
@@ -76,7 +75,7 @@ class LoanController extends Controller
         }
 
         $loan->update($validated);
-        return LoanDetailedResource::make($loan);
+        return new LoanDetailedResource($loan);
     }
 
     public function destroy(Loan $loan): Response
