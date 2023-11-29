@@ -54,6 +54,13 @@ QUERY);
             $table->timestamps();
         });
 
+        Schema::create('publishers', function (Blueprint $table) {
+            $table->id();
+            $table->text('name');
+            $table->text('normalized_name')->storedAs('upper(f_unaccent(name))')->unique();
+            $table->timestamps();
+        });
+
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->text('title');
@@ -62,6 +69,7 @@ QUERY);
             $table->char('isbn', 13)->unique(); // https://en.wikipedia.org/wiki/ISBN
             $table->foreignIdFor(Author::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Genre::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Publisher::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(\App\Models\File::class, 'cover_id')->nullable()->constrained('files');
             $table->timestamps();
         });
@@ -72,6 +80,7 @@ QUERY);
         Schema::dropIfExists('books');
         Schema::dropIfExists('authors');
         Schema::dropIfExists('genres');
+        Schema::dropIfExists('publishers');
         Schema::dropIfExists('files');
 
         \DB::unprepared('DROP FUNCTION IF EXISTS public.f_unaccent(text);');

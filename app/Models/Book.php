@@ -49,6 +49,7 @@ class Book extends Model
         'description',
         'rating',
         'isbn',
+        'publisher_id',
         'author_id',
         'genre_id',
         'cover_id',
@@ -71,6 +72,11 @@ class Book extends Model
     public function cover(): BelongsTo
     {
         return $this->belongsTo(File::class, 'cover_id');
+    }
+
+    public function publisher(): BelongsTo
+    {
+        return $this->belongsTo(Publisher::class);
     }
 
     protected static function newFactory(): BookFactory

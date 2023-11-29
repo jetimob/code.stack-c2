@@ -6,6 +6,7 @@ use App\Models\Author;
 use App\Models\Book;
 use App\Models\File;
 use App\Models\Genre;
+use App\Models\Publisher;
 use App\Services\FileService;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -29,6 +30,7 @@ class BookFactory extends Factory
             'rating' => $this->faker->numberBetween(1, 5),
             'isbn' => $this->faker->isbn13(),
             'author_id' => Author::factory(),
+            'publisher_id' => Publisher::factory(),
             'genre_id' => Genre::factory(),
             'cover_id' => File::factory(),
         ];
