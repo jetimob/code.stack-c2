@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+
 import Page from '../../components/layout/Page.jsx';
 import UpsertPeople from '../../forms/UpsertPeople.jsx';
 
@@ -10,7 +11,7 @@ const ManagePeople = () => {
         breadcrumbs.push({ title: id, to: `/peoples/${id}` });
     }
 
-    return(
+    return (
         <Page
             title={id ? `Edit People - ${id}` : 'New People'}
             breadcrumbs={breadcrumbs}

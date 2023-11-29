@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateGenreRequest;
-use App\Http\Resources\GenreDetailedResource;
 use App\Http\Resources\GenreResource;
 use App\Models\Genre;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -18,22 +17,22 @@ class GenreController extends Controller
         );
     }
 
-    public function show(Genre $genre): GenreDetailedResource
+    public function show(Genre $genre): GenreResource
     {
         $genre->loadCount('books');
-        return GenreDetailedResource::make($genre);
+        return GenreResource::make($genre);
     }
 
-    public function store(CreateGenreRequest $request): GenreDetailedResource
+    public function store(CreateGenreRequest $request): GenreResource
     {
         $genre = Genre::create($request->validated());
-        return GenreDetailedResource::make($genre);
+        return GenreResource::make($genre);
     }
 
-    public function update(CreateGenreRequest $request, Genre $genre): GenreDetailedResource
+    public function update(CreateGenreRequest $request, Genre $genre): GenreResource
     {
         $genre->update($request->validated());
-        return GenreDetailedResource::make($genre);
+        return GenreResource::make($genre);
     }
 
     public function destroy(Genre $genre): Response

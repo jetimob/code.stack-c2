@@ -10,15 +10,15 @@ import ManageBook from '../pages/books/ManageBook.jsx';
 import GenreList from '../pages/genres/GenreList.jsx';
 import GenreView from '../pages/genres/GenreView.jsx';
 import ManageGenre from '../pages/genres/ManageGenre.jsx';
-import PublisherList from '../pages/publishers/PublisherList.jsx';
-import PublisherView from '../pages/publishers/PublisherView.jsx';
-import ManagePublisher from '../pages/publishers/ManagePublisher.jsx';
+import LoanList from '../pages/loans/LoanList.jsx';
+import LoanView from '../pages/loans/LoanView.jsx';
+import ManageLoan from '../pages/loans/ManageLoan.jsx';
+import ManagePeople from '../pages/peoples/ManagePeople.jsx';
 import PeopleList from '../pages/peoples/PeopleList.jsx';
 import PeopleView from '../pages/peoples/PeopleView.jsx';
-import ManagePeople from '../pages/peoples/ManagePeople.jsx';
-import LoanList from '../pages/loans/LoanList.jsx';
-import ManageLoan from '../pages/loans/ManageLoan.jsx';
-import LoanView from '../pages/loans/LoanView.jsx';
+import ManagePublisher from '../pages/publishers/ManagePublisher.jsx';
+import PublisherList from '../pages/publishers/PublisherList.jsx';
+import PublisherView from '../pages/publishers/PublisherView.jsx';
 
 const Routes = () => (
     <RS>

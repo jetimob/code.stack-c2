@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+
 import Page from '../../components/layout/Page.jsx';
 import UpsertGenre from '../../forms/UpsertGenre.jsx';
 
@@ -10,7 +11,7 @@ const ManageGenre = () => {
         breadcrumbs.push({ title: id, to: `/genres/${id}` });
     }
 
-    return(
+    return (
         <Page
             title={id ? `Edit Genre - ${id}` : 'New Genre'}
             breadcrumbs={breadcrumbs}

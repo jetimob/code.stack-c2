@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('status');
             $table->date('return_date')->nullable();
             $table->foreignIdFor(Book::class)->constrained()->cascadeOnDelete();
-            $table->foreignId('people_id')->constrained('peoples');
+            $table->foreignId('people_id')->constrained('peoples')->cascadeOnDelete();
             $table->timestamps();
         });
     }

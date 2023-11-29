@@ -13,7 +13,7 @@ export const requestError = (err, options = {}) => {
     if (err.response) {
         const { data } = err.response;
         if (data.errors) {
-            const messages = Object.entries((data.errors)).map(([key, value]) => {
+            const messages = Object.entries(data.errors).map(([key, value]) => {
                 return `${key}: ${value.join(' ')}`;
             });
             return error(messages.join('; '), options);
@@ -25,7 +25,7 @@ export const requestError = (err, options = {}) => {
     }
 
     return error(err.message, options);
-}
+};
 
 export const success = (message, options = {}) =>
     show(message, { color: 'green', ...options });

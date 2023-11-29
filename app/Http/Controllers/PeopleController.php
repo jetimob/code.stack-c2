@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatePeopleRequest;
-use App\Http\Resources\PeopleDetailedResource;
 use App\Http\Resources\PeopleResource;
 use App\Models\People;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -18,22 +17,22 @@ class PeopleController extends Controller
         );
     }
 
-    public function show(People $people): PeopleDetailedResource
+    public function show(People $people): PeopleResource
     {
         $people->loadCount('loans');
-        return PeopleDetailedResource::make($people);
+        return PeopleResource::make($people);
     }
 
-    public function store(CreatePeopleRequest $request): PeopleDetailedResource
+    public function store(CreatePeopleRequest $request): PeopleResource
     {
         $people = People::create($request->validated());
-        return PeopleDetailedResource::make($people);
+        return PeopleResource::make($people);
     }
 
-    public function update(CreatePeopleRequest $request, People $people): PeopleDetailedResource
+    public function update(CreatePeopleRequest $request, People $people): PeopleResource
     {
         $people->update($request->validated());
-        return PeopleDetailedResource::make($people);
+        return PeopleResource::make($people);
     }
 
     public function destroy(People $people): Response

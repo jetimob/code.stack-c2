@@ -11,7 +11,7 @@ const ManageLoan = () => {
         breadcrumbs.push({ title: id, to: `/loans/${id}` });
     }
 
-    return(
+    return (
         <Page
             title={id ? `Edit Loan - ${id}` : 'New Loan'}
             breadcrumbs={breadcrumbs}

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatePublisherRequest;
-use App\Http\Resources\PublisherDetailedResource;
 use App\Http\Resources\PublisherResource;
 use App\Models\Publisher;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -18,22 +17,22 @@ class PublisherController extends Controller
         );
     }
 
-    public function show(Publisher $publisher): PublisherDetailedResource
+    public function show(Publisher $publisher): PublisherResource
     {
         $publisher->loadCount('books');
-        return PublisherDetailedResource::make($publisher);
+        return PublisherResource::make($publisher);
     }
 
-    public function store(CreatePublisherRequest $request): PublisherDetailedResource
+    public function store(CreatePublisherRequest $request): PublisherResource
     {
         $publisher = Publisher::create($request->validated());
-        return PublisherDetailedResource::make($publisher);
+        return PublisherResource::make($publisher);
     }
 
-    public function update(CreatePublisherRequest $request, Publisher $publisher): PublisherDetailedResource
+    public function update(CreatePublisherRequest $request, Publisher $publisher): PublisherResource
     {
         $publisher->update($request->validated());
-        return PublisherDetailedResource::make($publisher);
+        return PublisherResource::make($publisher);
     }
 
     public function destroy(Publisher $publisher): Response

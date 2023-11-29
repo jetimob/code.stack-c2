@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+
 import Page from '../../components/layout/Page.jsx';
 import UpsertPublisher from '../../forms/UpsertPublisher.jsx';
 
@@ -10,7 +11,7 @@ const ManagePublisher = () => {
         breadcrumbs.push({ title: id, to: `/publishers/${id}` });
     }
 
-    return(
+    return (
         <Page
             title={id ? `Edit Publisher - ${id}` : 'New Publisher'}
             breadcrumbs={breadcrumbs}

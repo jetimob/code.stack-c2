@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+
 import Page from '../../components/layout/Page.jsx';
 import UpsertAuthor from '../../forms/UpsertAuthor.jsx';
 
@@ -10,7 +11,7 @@ const ManageAuthor = () => {
         breadcrumbs.push({ title: id, to: `/authors/${id}` });
     }
 
-    return(
+    return (
         <Page
             title={id ? `Edit Author - ${id}` : 'New Author'}
             breadcrumbs={breadcrumbs}

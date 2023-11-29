@@ -1,4 +1,5 @@
 import { Stack, Text } from '@mantine/core';
+
 import RemoteBookList from '../../components/book/RemoteBookList.jsx';
 import Page from '../../components/layout/Page.jsx';
 import api from '../../services/api';
@@ -21,10 +22,10 @@ const PublisherView = ({ data: publisher }) => {
             route='publishers'
             id={publisher.id}
         >
-        <Stack>
-            <Text>{publisher.book_count} known book(s):</Text>
-            <RemoteBookList remoteSrc={remoteSrc} />
-        </Stack>
+            <Stack>
+                <Text>{publisher.book_count} known book(s):</Text>
+                <RemoteBookList remoteSrc={remoteSrc} />
+            </Stack>
         </Page>
     );
 };

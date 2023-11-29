@@ -11,7 +11,7 @@ const ManageBook = () => {
         breadcrumbs.push({ title: id, to: `/books/${id}` });
     }
 
-    return(
+    return (
         <Page
             title={id ? `Edit Book - ${id}` : 'New Book'}
             breadcrumbs={breadcrumbs}
