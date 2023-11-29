@@ -13,14 +13,15 @@ use Illuminate\Http\Response;
 class AuthorController extends Controller
 {
     public function index(QueryRequest $request): ResourceCollection
-    {
-        return AuthorResource::collection(
-            Author::withCount('books')
+{
+    $authors = Author::with('books')
+                ->withCount('books')
                 ->orderBy('id')
                 ->search($request->getQuery())
-                ->paginate()
-        );
-    }
+                ->paginate();
+
+    return AuthorResource::collection($authors);
+}
 
     public function show(Author $author): AuthorDetailedResource
     {

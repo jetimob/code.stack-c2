@@ -19,12 +19,11 @@ const AuthorList = () => (
                             <MTable.Th></MTable.Th>
                         </MTable.Tr>
                     </MTable.Thead>
-
                     <MTable.Tbody>
                         {authors.map(author => (
                             <MTable.Tr key={author.id}>
                                 <MTable.Td>{author.name}</MTable.Td>
-                                <MTable.Td>{author.book_count}</MTable.Td>
+                                <MTable.Td>{author.books_count}</MTable.Td>
                                 <TableActions
                                     id={author.id}
                                     api={api.authors}

@@ -14,7 +14,7 @@ class PeopleController extends Controller
     public function index(): ResourceCollection
     {
         return PeopleResource::collection(
-            People::withCount('loans')->orderBy('id')->paginate()
+            People::with('loans')->withCount('loans')->orderBy('id')->paginate()
         );
     }
 

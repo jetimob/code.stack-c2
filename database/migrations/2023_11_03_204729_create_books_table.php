@@ -71,7 +71,7 @@ QUERY);
             $table->foreignIdFor(Author::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Genre::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Publisher::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(\App\Models\File::class, 'cover_id')->nullable()->constrained('files');
+            $table->foreignIdFor(\App\Models\File::class, 'cover_id')->nullable()->constrained('files')->onDelete('SET NULL');
             $table->timestamps();
         });
     }

@@ -14,7 +14,7 @@ class GenreController extends Controller
     public function index(): ResourceCollection
     {
         return GenreResource::collection(
-            Genre::withCount('books')->orderBy('id')->paginate()
+            Genre::with('books')->withCount('books')->orderBy('id')->paginate()
         );
     }
 

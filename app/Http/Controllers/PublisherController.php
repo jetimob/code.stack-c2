@@ -14,7 +14,7 @@ class PublisherController extends Controller
     public function index(): ResourceCollection
     {
         return PublisherResource::collection(
-            Publisher::withCount('books')->orderBy('id')->paginate()
+            Publisher::with('books')->withCount('books')->orderBy('id')->paginate()
         );
     }
 
