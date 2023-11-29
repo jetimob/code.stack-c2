@@ -21,18 +21,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->group(function () {
-
+    Route::prefix('/v1')->group(function () {
+        Route::apiResource('books', BookController::class);
+        Route::apiResource('authors', AuthorController::class);
+        Route::apiResource('genres', GenreController::class);
+        Route::apiResource('authors.books', AuthorBooksController::class)->only(['index']);
+        Route::apiResource('books.cover', BookCoverController::class)->only(['store', 'destroy']);
+        Route::apiResource('covers', CoverController::class)->only(['show', 'store', 'destroy']);
+    });
 });
 
 Route::prefix('/v1')->group(function () {
-    // parece que tem um middleware faltando aqui para autenticar as rotas
-    Route::apiResource('books', BookController::class);
-    Route::apiResource('authors', AuthorController::class);
-    Route::apiResource('genres', GenreController::class);
-    Route::apiResource('authors.books', AuthorBooksController::class)->only(['index']);
-    Route::apiResource('books.cover', BookCoverController::class)->only(['store', 'destroy']);
-    Route::apiResource('covers', CoverController::class)->only(['show', 'store', 'destroy']);
-
     Route::prefix('/auth')->group(function () {
         Route::post('/sign-in', [AuthenticationController::class, 'signIn']);
         Route::post('/sign-up', [AuthenticationController::class, 'signUp']);
