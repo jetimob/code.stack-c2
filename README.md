@@ -136,7 +136,7 @@ Caso tenha alguma dúvida, crie uma issue neste repositório para que todos poss
 =================================ADIÇÕES=============================================
 
 --PROTEÇÃO DE ROTAS
-- Adicionado o CRUD de gêneros, com os métodos criados dentro dos controllers
+- Adicionado o CRUD de gêneros, criando-se controllers e services.
 
 - Foi implementado uma proteção simples com auth:sanctum excetuando-se as rotas de GET dos livros, ou seja Route::apiResource('books', BookController::class)->only(['index', 'show']); foi criado fora da middleware de proteção de rotas.
 
@@ -157,6 +157,7 @@ Os testes devem aparecer exatamente assim:
 
 - Alteração da rota de autores, expondo os métodos GET e protegendo a criação, atualização e deleção.
 
+- Observação menor: Instalei o composer afim de utilizar o JWT mas mudei o caminho e não desfiz a instalação.
 
 Observações importantes: 
 - Entendi que não deveria mexer em relacionamento e tabelas além das especificações, então não aprofundei na proteção de rotas e nem alterei a lógica de outras etapas. Se isto era um dos objetivos apenas gostaria de saber ao receber o feedback.
