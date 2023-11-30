@@ -22,6 +22,7 @@ const UpsertBook = ({ data, setDataWith }) => {
             isbn: data?.isbn ?? '',
             author_id: data?.author?.id ?? null,
             genre_id: data?.genre?.id ?? null,
+            publisher_id: data?.publisher?.id ?? null,
             cover_id: data?.cover?.id ?? null,
         },
         validate: {
