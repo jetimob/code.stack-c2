@@ -3,6 +3,7 @@
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Genre;
+use App\Models\User;
 use Illuminate\Http\UploadedFile;
 
 uses()->group('books');
@@ -13,6 +14,7 @@ function getLastBook(): Book
 }
 
 test('should return a list of paginated books', function () {
+   
     $concreteBook = Book::factory()->create();
     $response = $this->getJson(route('books.index'));
     $paginatedResponse = $response->json();
@@ -45,7 +47,8 @@ test('should return a list of paginated books', function () {
 });
 
 test('will fail when creating a book with invalid data', function () {
-    $response = $this->postJson(route('books.store'), [
+    $user = User::factory()->create();
+    $response = $this->actingAs($user, 'sanctum')->postJson(route('books.store'), [
         'title' => '',
         'description' => '',
         'author' => '',
@@ -56,6 +59,7 @@ test('will fail when creating a book with invalid data', function () {
 });
 
 test('can create a book without cover', function () {
+    $user = User::factory()->create();
     $author = Author::factory()->create();
     $genre = Genre::factory()->create();
     $title = fake()->word;
@@ -71,7 +75,7 @@ test('can create a book without cover', function () {
         'genre_id' => $genre->getKey(),
     ];
 
-    $response = $this->postJson(route('books.store'), $arrData);
+    $response = $this->actingAs($user, 'sanctum')->postJson(route('books.store'), $arrData);
     $book = getLastBook();
 
     $response->assertCreated();
@@ -80,17 +84,22 @@ test('can create a book without cover', function () {
 });
 
 test('can create a book with cover', function () {
+    $user = User::factory()->create(); 
     $author = Author::factory()->create();
     $genre = Genre::factory()->create();
     $title = fake()->words(asText: true);
     $description = fake()->paragraph;
     $rating = fake()->numberBetween(1, 5);
     $isbn = fake()->isbn13();
-    $coverResponse = $this->postJson(route('covers.store'), [
+
+    
+    $coverResponse = $this->actingAs($user, 'sanctum')->postJson(route('covers.store'), [
         'cover' => UploadedFile::fake()->image('image.jpg'),
     ]);
     $coverResponse->assertCreated();
     $coverData = $coverResponse->json()['data'];
+
+   
     $arrData = [
         'title' => $title,
         'description' => $description,
@@ -101,7 +110,7 @@ test('can create a book with cover', function () {
         'cover_id' => $coverData['id'],
     ];
 
-    $response = $this->postJson(route('books.store'), $arrData);
+    $response = $this->actingAs($user, 'sanctum')->postJson(route('books.store'), $arrData);
     $response->assertCreated();
     $book = getLastBook();
 
@@ -109,6 +118,7 @@ test('can create a book with cover', function () {
     expect($book)->toBeBook($arrData)
         ->and($book->cover_id)->toBe($coverData['id']);
 });
+
 
 test('can show a book correctly', function () {
     $book = Book::factory()->create();
@@ -139,8 +149,9 @@ test('can show a book correctly', function () {
 });
 
 test('will fail when updating a book with invalid data', function () {
+    $user = User::factory()->create();
     $book = Book::factory()->create();
-    $response = $this->putJson(route('books.update', $book->getKey()), [
+    $response = $this->actingAs($user, 'sanctum')->putJson(route('books.update', $book->getKey()), [
         'title' => '',
         'description' => '',
         'author' => '',
@@ -151,6 +162,7 @@ test('will fail when updating a book with invalid data', function () {
 });
 
 test('can update a book', function () {
+    $user = User::factory()->create();
     $book = Book::factory()->create();
     $author = Author::factory()->create();
     $genre = Genre::factory()->create();
@@ -167,7 +179,7 @@ test('can update a book', function () {
         'author_id' => $author->getKey(),
         'genre_id' => $genre->getKey(),
     ];
-    $response = $this->putJson(route('books.update', $book->getKey()), $arrData);
+    $response = $this->actingAs($user, 'sanctum')->putJson(route('books.update', $book->getKey()), $arrData);
     $response->assertOk();
 
     $updatedBook = $book->fresh();
@@ -181,14 +193,16 @@ test('can update a book', function () {
 });
 
 test('can remove a book cover', function () {
-    $book = Book::factory()->create();
-    $coverPath = $book->cover->path;
-    $response = $this->delete(route('books.cover.destroy', [$book->getKey(), $book->cover_id]));
+    $user = User::factory()->create(); 
+    $book = Book::factory()->create(); 
+    $coverPath = $book->cover->path; 
 
-    $response->assertNoContent();
-    Storage::disk()->assertMissing($coverPath);
+    $response = $this->actingAs($user, 'sanctum')->delete(route('books.cover.destroy', [$book->getKey(), $book->cover_id]));
+
+    $response->assertNoContent(); 
+    Storage::disk()->assertMissing($coverPath); 
 });
 
 afterAll(function () {
-    exec('rm ' . storage_path('app/files') . '/temp*');
+    exec('rm ' . storage_path('app/files') . '/temp*'); // Cleanup temporary files
 });

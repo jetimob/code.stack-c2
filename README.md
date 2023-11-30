@@ -128,3 +128,41 @@ Caso tenha alguma dúvida, crie uma issue neste repositório para que todos poss
 
 > [!WARNING]
 > Este é um projeto exemplo! **NUNCA** compartilhe o arquivo `.env` com ninguém, muito menos em um repositório público.
+
+
+
+
+=====================================================================================
+=================================ADIÇÕES=============================================
+
+--PROTEÇÃO DE ROTAS
+- Adicionado o CRUD de gêneros, com os métodos criados dentro dos controllers
+
+- Foi implementado uma proteção simples com auth:sanctum excetuando-se as rotas de GET dos livros, ou seja Route::apiResource('books', BookController::class)->only(['index', 'show']); foi criado fora da middleware de proteção de rotas.
+
+- Fez-se a adição de um usuário de teste para rodar os testes em BookTest.php; os testes que estavam implementados agora estão passando. OBS: Em outro caso eu teria utilizado o JWT para as autenticações, mas não tinha certeza de quantas alterações seriam necessárias nos arquivos, mantive o auth sanctum que já estava encaminhado.
+
+- Foram criados oito testes para autores. Estes incluem testes para criação, atualização, deleção, validação das chaves inseridas na criação e atualização e também o GET das informações para usuários autenticados e não autenticados (entendi que não haveria problema desproteger esta rota específica.)
+
+Os testes devem aparecer exatamente assim:
+
+✓ successfully create an author                                                                      
+✓ successfully update an author                                                                     
+✓ fail to update an author with invalid data                                                                       
+✓ successfully delete an author                                                                     
+✓ show all authors for authenticated users                                                                      
+✓ show all authors for unauthenticated users                                                                      
+✓ show a specific author for authenticated users                                                                      
+✓ show a specific author for unauthenticated users 
+
+- Alteração da rota de autores, expondo os métodos GET e protegendo a criação, atualização e deleção.
+
+
+Observações importantes: 
+- Entendi que não deveria mexer em relacionamento e tabelas além das especificações, então não aprofundei na proteção de rotas e nem alterei a lógica de outras etapas. Se isto era um dos objetivos apenas gostaria de saber ao receber o feedback.
+
+- Por alguma razão, foi impossível fazer o front end funcionar dentro do container. Após inúmeras tentativas, optei pela rota de que, por ser um desafio, eu não entraria em contato com a equipe e deveria, por mim mesmo, providenciar uma solução da melhor maneira possível. Assim, iniciei um repoitório separado, copiando todas as configurações e mantendo as mesmas dependências iniciais.
+
+
+
+

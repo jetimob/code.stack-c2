@@ -7,19 +7,20 @@ use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Request;
 
 class AuthenticationController extends Controller
 {
     public function signIn(SignInRequest $request): JsonResponse
     {
         if (\Auth::attempt($request->validated())) {
-            $request->session()->regenerate();
-            return response()->json(\Auth::user());
+            $user = \Auth::user();
+            $token = $user->createToken('api-token')->plainTextToken;
+    
+            return response()->json(['token' => $token, 'user' => $user]);
         }
-
-        return response()->json([
-            'message' => 'Invalid credentials'
-        ], 401);
+    
+        return response()->json(['message' => 'Invalid credentials'], 401);
     }
 
     public function signUp(StoreUserRequest $request): JsonResponse
@@ -28,15 +29,9 @@ class AuthenticationController extends Controller
         return response()->json($user, 201);
     }
 
-    public function signOut(): Response
+    public function signOut(Request $request): Response
     {
-        if (!\Auth::check()) {
-            return response()->noContent();
-        }
-
-        \Auth::logout();
-        request()->session()->invalidate();
-        request()->session()->regenerateToken();
+        $request->user()->tokens()->delete();
         return response()->noContent();
     }
 
