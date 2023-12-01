@@ -165,5 +165,41 @@ Observações importantes:
 - Por alguma razão, foi impossível fazer o front end funcionar dentro do container. Após inúmeras tentativas, optei pela rota de que, por ser um desafio, eu não entraria em contato com a equipe e deveria, por mim mesmo, providenciar uma solução da melhor maneira possível. Assim, iniciei um repoitório separado, copiando todas as configurações e mantendo as mesmas dependências iniciais.
 
 
+RESULTADO: Não foi possível acessar o front-end da aplicação corretamente. Não parece haver problemas de configuração nos arquivos docker e nem houveram erros que deixassem claro o porque de não ser possível acessar através da url exposta que era o localhost://5173. O resultado era apenas uma página padrão de integração entre o laravel e o React. Todas as tentativas de mudança de configuração não alteraram o resultado. 
+
+- Repositório separado:
+Ao copiar os arquivos package.json e os arquivos presentes na pasta resources/js para o novo diretório, a aplicação carregou normalmente na página de login. Porém não foi possível estabelecer conexão com a base de dados. As alterações para essa tentativa de conexão foi a criação de um arquivo .env na seguinte configuração:
+
+VITE_API_URL=http://localhost:8000/api/v1
+VITE_APP_URL=http://localhost:3000
 
 
+- Também alterou-se o cors.php, para efeitos de teste, permitindo credenciais
+
+ 'supports_credentials' => true,
+
+porém essa configuração não alterou as mensagens de erro.
+
+
+
+ - Tentei também a exposição da porta 8000 da API adicionando a seguinte linha na seção app:
+ 
+ ports:
+     - "8000:8000" 
+  
+sem sucesso.
+
+- Houve algum efeito ao alterar, no diretório fora do docker, ao retirar o referer.
+
+const api = axios.create({
+    baseURL: import.meta.env.VITE_API_URL,
+    withCredentials: true,
+    headers: {
+        'Accept': 'application/json'
+        // 'Referer': import.meta.env.VITE_APP_URL,   
+    },
+});
+
+Comentar o referer removeu os erros que o console mostrava relativo a não aceitação do referer que foi considerada pouco segura. Não sabendo mais como estabelecer a conexão, abro mão de tentar resolver o front end.
+
+As modificações da aplicação dockerizada para tentar resolver o problema do front end não serão adicionadas a submissão.
