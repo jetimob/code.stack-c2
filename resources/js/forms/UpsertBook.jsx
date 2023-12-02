@@ -1,3 +1,6 @@
+UpsertBook
+
+
 import { useState } from 'react';
 
 import { FileInput, Input, Rating, Stack, TextInput } from '@mantine/core';
@@ -22,6 +25,7 @@ const UpsertBook = ({ data, setDataWith }) => {
             isbn: data?.isbn ?? '',
             author_id: data?.author?.id ?? null,
             genre_id: data?.genre?.id ?? null,
+            publisher_id: data?.publisher?.id ?? null,
             cover_id: data?.cover?.id ?? null,
         },
         validate: {
@@ -147,6 +151,14 @@ const UpsertBook = ({ data, setDataWith }) => {
                         placeholder='Select a genre'
                         withOption={data?.genre ?? {}}
                         {...form.getInputProps('genre_id')}
+                    />
+                      <RemoteSelect
+                        required
+                        label='Publisher'
+                        api={api.publisher}
+                        placeholder='Select a publisher'
+                        withOption={data?.publisher ?? {}}
+                        {...form.getInputProps('publisher_id')}
                     />
                     <FormButtons/>
                 </Stack>

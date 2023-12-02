@@ -30,6 +30,12 @@ const Routes = () => (
         <Route path='/genres'>
             <Route index element={<GenreList />} />
         </Route>
+        <Route path='/publishers'>
+            <Route index element={<BookList />} />
+            <Route path=':id' element={<BookView />} />
+            <Route path=':id/edit' element={<ManageBook />} />
+            <Route path='new' element={<ManageBook />} />
+        </Route>
 
         <Route path='*' element={<NotFound />} />
     </RS>
