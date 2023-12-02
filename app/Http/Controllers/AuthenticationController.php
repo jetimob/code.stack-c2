@@ -7,12 +7,13 @@ use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class AuthenticationController extends Controller
 {
     public function signIn(SignInRequest $request): JsonResponse
     {
-        if (\Auth::attempt($request->validated())) {
+        if (Auth::attempt($request->validated())) {
             $request->session()->regenerate();
             return response()->json(\Auth::user());
         }
