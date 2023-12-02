@@ -33,6 +33,7 @@ class Genre extends Model
 {
     protected $fillable = [
         'name',
+        'normalized_name'
     ];
 
     public function books(): HasMany
