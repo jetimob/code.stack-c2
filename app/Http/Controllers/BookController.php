@@ -23,9 +23,8 @@ class BookController extends Controller
 
     public function index(): ResourceCollection
     {
-        return BookResource::collection(
-            Book::orderBy('id')->paginate()
-        );
+        $book = Book::orderBy('id')->paginate();
+        return BookResource::collection($book);
     }
 
     public function show(Book $book): JsonResource

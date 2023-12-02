@@ -52,6 +52,7 @@ class Book extends Model
         'author_id',
         'genre_id',
         'cover_id',
+        'publisher_id',
     ];
 
     protected $casts = [
@@ -66,6 +67,10 @@ class Book extends Model
     public function genre(): BelongsTo
     {
         return $this->belongsTo(Genre::class);
+    }
+    public function publisher():BelongsTo
+    {
+        return $this->belongsTo(Publisher::class);
     }
 
     public function cover(): BelongsTo

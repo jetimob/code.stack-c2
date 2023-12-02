@@ -28,14 +28,14 @@ class BookService
 
     public function attachCover(StoreBookCoverRequest $request, Book $book): Book
     {
-//        if (
-//            $request->getUploadedImage() !== null
-//            && !$this->fileService->isSameFile($book->cover, $request->getUploadedImage())
-//        ) {
-//            $this->fileService->delete($book->cover);
-//            $file = $this->fileService->store($request->getUploadedImage());
-//            $book->cover()->associate($file);
-//        } else
+        if (
+            $request->getUploadedImage() !== null
+           && !$this->fileService->isSameFile($book->cover, $request->getUploadedImage())
+        ) {
+            $this->fileService->delete($book->cover);
+           $file = $this->fileService->store($request->getUploadedImage());
+          $book->cover()->associate($file);
+       } else
         return \DB::transaction(function () use ($request, $book) {
             if ($request->getUploadedImage() === null) {
                 return $book;
