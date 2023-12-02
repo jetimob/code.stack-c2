@@ -36,5 +36,7 @@ expect()->extend('toBeBook', function (array $arrData) {
         ->and($this->value->rating)->toBe($arrData['rating'])
         ->and($this->value->isbn)->toBe($arrData['isbn'])
         ->and($this->value->author->getKey())->toBe($arrData['author_id'])
-        ->and($this->value->genre->getKey())->toBe($arrData['genre_id']);
+        ->and($this->value->genre->getKey())->toBe($arrData['genre_id'])
+        ->and($this->value->publisher->getKey())->toBe($arrData['publisher_id']);
+
 });

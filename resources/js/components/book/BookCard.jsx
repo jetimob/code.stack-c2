@@ -39,6 +39,14 @@ const BookCard = ({ book }) => (
                     </Badge>
                 </Link>
             </Grid.Col>
+
+            <Grid.Col span='content'>
+                <Link to={`/publishers/${book.publisher.id}`}>
+                    <Badge color='blue' variant='light'>
+                        {book.publisher.name}
+                    </Badge>
+                </Link>
+            </Grid.Col>
         </Grid>
 
         <Center>
