@@ -2,6 +2,7 @@
 
 use App\Models\Author;
 use App\Models\Genre;
+use App\Models\Publisher;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -62,6 +63,7 @@ QUERY);
             $table->char('isbn', 13)->unique(); // https://en.wikipedia.org/wiki/ISBN
             $table->foreignIdFor(Author::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Genre::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Publisher::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(\App\Models\File::class, 'cover_id')->nullable()->constrained('files');
             $table->timestamps();
         });
